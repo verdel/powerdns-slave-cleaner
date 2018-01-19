@@ -10,8 +10,8 @@ What is this?
 
 Installation
 ************
-*on most UNIX-like systems, you'll probably need to run the following
-`install` commands as root or by using sudo*
+*on most UNIX-like systems, you'll probably need to run the following*
+``install`` *commands as root or by using sudo*
 
 **from source**
 
