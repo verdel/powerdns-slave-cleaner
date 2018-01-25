@@ -5,7 +5,7 @@ powerdns-slave-cleaner - Script for removing slave zones
 
 What is this?
 *************
-``powerdns-slave-cleaner`` provides an executable called ``pdns-slave-cleaner``
+``powerdns-slave-cleaner`` provides an executable called ``powerdns-slave-cleaner``
 
 
 Installation
@@ -27,15 +27,15 @@ Installation
   cd powerdns-slave-cleaner
   python setup.py install
 
-as a result, the ``pdns-slave-cleaner`` executable will be installed into a system ``bin``
+as a result, the ``powerdns-slave-cleaner`` executable will be installed into a system ``bin``
 directory
 
 Usage
 -----
 ::
 
-    pdns-slave-cleaner --help
-    usage: pdns-slave-cleaner [-h] -a HOST [-p PORT] -k API_KEY [--use-ssl]
+    powerdns-slave-cleaner --help
+    usage: powerdns-slave-cleaner [-h] -a HOST [-p PORT] -k API_KEY [--use-ssl]
                                      [--dry-run]
 
     Script for removing slave zones

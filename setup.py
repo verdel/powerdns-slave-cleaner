@@ -30,7 +30,7 @@ setup(
     author_email='valeksandrov@me.com',
     url='https://github.com/verdel/powerdns-slave-cleaner',
     packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
-    entry_points={'console_scripts': ['pdns-slave-cleaner=src.powerdns-slave-cleaner:main', ], },
+    entry_points={'console_scripts': ['powerdns-slave-cleaner=src.powerdns_slave_cleaner:main', ], },
     include_package_data=True,
     install_requires=requirements,
     keywords='powerdns slave clean',
