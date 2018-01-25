@@ -5,6 +5,13 @@ powerdns-slave-cleaner - Script for removing slave zones
 
 What is this?
 *************
+This script get local domain zone on slave PowerDNS server by API request.
+For each received domain zone, the script receives the master server addresses.
+After that, a request is made through the API to each master server.
+If the master server does not have a zone record corresponding to the local record,
+then the local zone is deleted
+
+
 ``powerdns-slave-cleaner`` provides an executable called ``powerdns-slave-cleaner``
 
 
