@@ -80,7 +80,7 @@ def main():
             for master in zone['masters']:
                 if master not in all_master_zones:
                     master_zones = api_get_zones(base_url='{}://{}:{}'.format(base_proto, master, args.port), api_key=args.api_key)
-                    if master_zones:
+                    if master_zones or type(master_zones) is list:
                         all_master_zones.update({master: master_zones})
 
     for zone in slave_zones:
