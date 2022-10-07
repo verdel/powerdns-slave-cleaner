@@ -15,7 +15,7 @@ with open('src/__init__.py') as f:
             version = version.strip("'")
             continue
 
-with open(path.join(here, 'README.rst'), encoding='utf-8') as readme_file:
+with open(path.join(here, 'README.md'), encoding='utf-8') as readme_file:
     readme = readme_file.read()
 
 with open(path.join(here, 'requirements.txt'), encoding='utf-8') as requirements_file:
