@@ -46,12 +46,18 @@ def check_master_zone_exist(name, zones):
 
 def create_cli():
     parser = argparse.ArgumentParser(description='Script for removing slave zones')
-    parser.add_argument('-a', '--host', type=str, required=True,
+    parser.add_argument('--host', type=str, required=True,
                         help='powerdns slave server api address')
-    parser.add_argument('-p', '--port', type=int, default=8081,
+    parser.add_argument('--port', type=int, default=8081,
                         help='powerdns slave server api port (defaults to %(default)i)')
-    parser.add_argument('-k', '--api-key', type=str, required=True,
+    parser.add_argument('--api-key', type=str, required=True,
                         help='powerdns slave server api key')
+    parser.add_argument('--master-host', type=str,
+                        help='powerdns master server api address')
+    parser.add_argument('--master-port', type=int, default=8081,
+                        help='powerdns master server api port (defaults to %(default)i)')
+    parser.add_argument('--master-api-key', type=str,
+                        help='powerdns master server api key (defaults to slave server api key')
     parser.add_argument('--use-ssl', action='store_true',
                         help='use https instead http')
     parser.add_argument('--dry-run', action='store_true',
@@ -69,6 +75,8 @@ def main():
 
     base_proto = 'https' if args.use_ssl else 'http'
 
+    master_api_key = args.master_api_key or args.api_key
+
     slave_zones = api_get_zones(base_url='{}://{}:{}'.format(base_proto, args.host, args.port), api_key=args.api_key)
     if not slave_zones:
         sys.exit()
@@ -77,16 +85,18 @@ def main():
 
     for zone in slave_zones:
         if zone['kind'] == 'Slave':
-            for master in zone['masters']:
+            masters = [args.master_host] if args.master_host else zone['masters']
+            for master in masters:
                 if master not in all_master_zones:
-                    master_zones = api_get_zones(base_url='{}://{}:{}'.format(base_proto, master, args.port), api_key=args.api_key)
+                    master_zones = api_get_zones(base_url='{}://{}:{}'.format(base_proto, master, args.master_port), api_key=master_api_key)
                     if master_zones or type(master_zones) is list:
                         all_master_zones.update({master: master_zones})
 
     for zone in slave_zones:
         if zone['kind'] == 'Slave':
             remove_flag = True
-            for master in zone['masters']:
+            masters = [args.master_host] if args.master_host else zone['masters']
+            for master in masters:
                 if check_master_zone_exist(zone['name'], all_master_zones[master]):
                     remove_flag = False
                     break
